@@ -29,6 +29,15 @@ public class main {
         x.f(1); //
         //x.g(1); cant run because x is of type class A
         x.h(1);
+
+
+        //PARAMETRIC POLYMORPHISM
+
+        Pair<Integer, String> p1 = new Pair<>(1, "hello");
+        Pair<String, List<Integer>> p2 = new Pair<String, List<Integer>>("numbers", new ArrayList<>());
+        System.out.println(p1.second);
+        System.out.println(p2.first);
+
     }
     // AD HOC POLYMORPHISM
     // method that is chosen depends on what is the arguement's type passed in
@@ -40,6 +49,8 @@ public class main {
         System.out.println(s);
     }
 }
+
+//SUBTYPE POLYMORPHISM
 class Point2D{
     private double x;
     private double y;
@@ -99,3 +110,34 @@ class B extends  A {
         System.out.println("Bg");
     }
 }
+
+//GENERICS (are type parameters
+//PARAMETRIC POLYMORPHISM
+
+public class Pair<T, S>{
+    private T first;
+    private S second;
+    public Pair(T first, S second){
+        this.first = first;
+        this.second = second;
+    }
+
+    public T getFirst(){
+        return this.first;
+    }
+
+    public void setFirst(T first) {
+        this.first = first;
+    }
+    public S getSecond(){
+        return this.second;
+    }
+    public void setSecond(S s){
+        this.second =s;
+    }
+    public Pair<S, T> swap (){
+        return new Pair<S, T>(this.second,this.first);
+    }
+}
+
+
