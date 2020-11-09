@@ -32,11 +32,42 @@ public class main {
 
 
         //PARAMETRIC POLYMORPHISM
-
+        // DIFFERNCE IS THAT THE TYPE OF THE ARGUEMENTS ARE NOT SPECIFIED
+        // THUS T, S ARE UNKNOWN UNTIL PASSED IN
         Pair<Integer, String> p1 = new Pair<>(1, "hello");
         Pair<String, List<Integer>> p2 = new Pair<String, List<Integer>>("numbers", new ArrayList<>());
-        System.out.println(p1.second);
-        System.out.println(p2.first);
+        System.out.println(p1.getSecond());
+        System.out.println(p2.getFirst());
+
+
+        //INTERFACE
+
+        K kx = new K(); // normal instantiation of object
+        //K kxx = new I(); // illegal because interface is abstract
+        I kxx = new K(); // declared type I, actual type K
+        //I X = new I(); // actual type is abstract, abstract cannot be instantiated
+
+        // method that takes in an interface is more flexible (able to accept any object implementing that interface)
+
+        //EXCEPTIONS (1)
+        //causes an output of S, when a negative number is passed into f function
+        //exception is thrown thus going to the catch statement thus only printing S
+        try{
+            f(-1);
+            System.out.print("R");
+        } catch (Exception e){
+            System.out.print("S");
+        }
+        System.out.println();
+        //EXCEPTIONS (2)
+        //causes an output of QR as exception is first throw inside function j
+        //afterwards exception is already handled thus in the main method does not need to catch again
+        try{
+            j(-1);
+            System.out.print("R");
+        } catch (Exception e){
+            System.out.print("S");
+        }
 
     }
     // AD HOC POLYMORPHISM
@@ -47,6 +78,22 @@ public class main {
 
     public void log(String s){
         System.out.println(s);
+    }
+
+    //EXCEPTION 1
+    static void f(int x) throws Exception{
+        if(x< 0 ) throw new Exception();
+        System.out.print("P");
+    }
+
+    //EXCEPTION 2
+    static void j(int x){
+        try{
+            if(x< 0) throw new Exception();
+            System.out.print("P");
+        } catch (Exception e) {
+            System.out.print("Q");
+        }
     }
 }
 
@@ -114,30 +161,67 @@ class B extends  A {
 //GENERICS (are type parameters
 //PARAMETRIC POLYMORPHISM
 
-public class Pair<T, S>{
+
+class Pair<T, S> {
     private T first;
     private S second;
-    public Pair(T first, S second){
+
+    public Pair(T first, S second) {
         this.first = first;
         this.second = second;
     }
 
-    public T getFirst(){
+    public T getFirst() {
         return this.first;
     }
 
     public void setFirst(T first) {
         this.first = first;
     }
-    public S getSecond(){
+
+    public S getSecond() {
         return this.second;
     }
-    public void setSecond(S s){
-        this.second =s;
+
+    public void setSecond(S s) {
+        this.second = s;
     }
-    public Pair<S, T> swap (){
-        return new Pair<S, T>(this.second,this.first);
+
+    public Pair<S, T> swap() {
+        return new Pair<S, T>(this.second, this.first);
+    }
+}
+interface I {
+    void m(int x);
+}
+class K implements I{
+
+    @Override
+    public void m(int x) {
+        System.out.println("m");
     }
 }
 
+interface Pokemon{
+    void adjustCp(int value);
+    void attack();
+    void defend();
+}
 
+class Bulbasaur implements Pokemon{
+
+    @Override
+    public void adjustCp(int value) {
+
+    }
+
+    @Override
+    public void attack() {
+
+    }
+
+    @Override
+    public void defend() {
+
+    }
+}
